@@ -29,8 +29,8 @@ This project is a simple chatbot application built using Flask, which integrates
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/your-repo.git
-   cd your-repo
+   git clone [https://github.com/yourusername/your-repo.git](https://github.com/prakriti16/temp.git)
+   cd temp
    ```
 
 2. Install the required packages:
