@@ -57,6 +57,10 @@ This project is a simple chatbot application built using Flask, which integrates
 
 3. Start chatting with the bot!
 
+## Demo
+
+![Demo of Flask Chatbot](demo.png)
+
 ## File Structure
 
 ```
@@ -75,4 +79,3 @@ Contributions are welcome! If you have suggestions or improvements, feel free to
 
 - Thanks to Google for providing the Generative AI API.
 - Flask for the lightweight web framework.
-```
