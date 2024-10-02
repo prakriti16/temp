@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Text Generator Chat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+        }
+        
+        .container {
+            max-width: 800px; /* Limit maximum width for better readability */
+            margin: auto;     /* Center the container */
+            padding: 20px;    /* Add padding around the container */
+        }
+        
+        .chat-box {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            max-height: 70vh; /* Set max height to 70% of viewport height */
+            overflow-y: auto; /* Allow scrolling if content exceeds height */
+            margin-bottom: 20px;
+            background-color: #fff; /* Background color for contrast */
+        }
+        
+        .user-message, .ai-response {
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            max-width: 80%; /* Adjust maximum width for messages */
+            word-wrap: break-word; /* Prevent overflow of long words */
+        }
+        
+        .user-message {
+            background-color: #007bff; /* User message background color */
+            color: white; /* Text color */
+            align-self: flex-end; /* Align user message to the right */
+        }
+        
+        .ai-response {
+            background-color: #e9ecef; /* AI response background color */
+            align-self: flex-start; /* Align AI response to the left */
+        }
+        
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Responsive Textarea and Button */
+        textarea {
+            resize: none; /* Prevent resizing of the textarea */
+        }
+        
+        button {
+            width: 100%; /* Full width for buttons */
+        }
+        
+        /* Media Queries for responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px; /* Adjust padding for smaller screens */
+            }
+        
+            h1 {
+                font-size: 1.75rem; /* Adjust heading size */
+            }
+        
+            .chat-box {
+                padding: 15px; /* Adjust chat box padding */
+            }
+        
+            .user-message, .ai-response {
+                max-width: 90%; /* Increase width on smaller screens */
+            }
+        
+            .user-message {
+                align-self: flex-end; /* Keep user message alignment */
+            }
+        
+            .ai-response {
+                align-self: flex-start; /* Keep AI response alignment */
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem; /* Further reduce heading size */
+            }
+        
+            .chat-box {
+                padding: 10px; /* Further reduce padding */
+            }
+        
+            .user-message, .ai-response {
+                max-width: 95%; /* Increase width on very small screens */
+            }
+        }
+        
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-5">AI Text Generator Chat</h1>
+    <div class="chat-box">
+        <div class="chat-container">
+            {% for chat in chat_history %}
+                <div class="user-message">
+                    <strong>You:</strong> {{ chat.user }}
+                </div>
+                <div class="ai-response">
+                    <strong>AI:</strong> {{ chat.ai | safe }}                    
+                </div>
+            {% endfor %}          
+        </div>
+    </div>
+    <form action="/generate" method="post">
+        <div class="mb-3">
+            <label for="user_input" class="form-label">Enter your message:</label>
+            <textarea id="user_input" name="user_input" class="form-control" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('save-chat').addEventListener('click', function() {
+        fetch('/load_chat_history')
+            .then(response => response.json())
+            .then(data => {
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'chat_history.json';
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+    });
+</script>
+</body>
+</html>
