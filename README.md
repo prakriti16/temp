@@ -59,7 +59,7 @@ This project is a simple chatbot application built using Flask, which integrates
 
 ## Demo
 
-![Demo of Flask Chatbot](demo.png)
+![Demo of Flask Chatbot](demo1.png)
 
 ## File Structure
 
