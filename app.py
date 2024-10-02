@@ -7,7 +7,7 @@ import base64
 app = Flask(__name__)
 
 # Set your Google API Key
-GOOGLE_API_KEY = ''  # Replace with your actual API key
+GOOGLE_API_KEY = 'AIzaSyC5fWuMrY1ZqQZKe17DkwGVu_vi172s7J8'  # Replace with your actual API key
 genai.configure(api_key=GOOGLE_API_KEY)
 model = 'gemini-1.5-flash' 
 gemini = genai.GenerativeModel(model_name=model)
